@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Чат</h1>
+{% for item in messages %}
+<div class="col-md6 border rounded">
+  <h2>{{item.title}}</h2>
+  <div>
+    {{item.content}}
+  </div>
+  <div>
+    Автор - {{item.user.email}}, Дата написания - {{item.created_date}}
+  </div>
+</div>
+{% endfor %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(class="form-control") }}<br>
+        {% for error in form.content.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}
